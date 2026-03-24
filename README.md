@@ -144,13 +144,169 @@ The HMM provides insight into latent risk states but performs worse than the Bay
 
 # Discussion
 
-From our results, we observed:
+# Discussion
 
-- Large diameter increases hazard probability  
-- Higher velocity increases risk  
-- Distance reduces hazard likelihood  
+In this project, we explored probabilistic modeling for predicting hazardous near-Earth asteroids using both Bayesian Networks and Hidden Markov Models. Our results provide several important insights about asteroid risk prediction and probabilistic modeling performance.
 
-These findings align with real-world expectations.
+---
+
+# Bayesian Network Analysis
+
+The Bayesian Network achieved an accuracy of approximately **0.766**, which is lower than the majority-class baseline accuracy of **0.902**. However, this result should be interpreted carefully.
+
+Since the dataset is highly imbalanced (most asteroids are non-hazardous), the baseline model simply predicts "non-hazardous" for all samples. While this yields high accuracy, it fails to identify hazardous asteroids, which is the more important task in this application.
+
+The Bayesian Network, on the other hand, improves **hazard detection recall**, meaning it is better at identifying potentially dangerous asteroids.
+
+This highlights an important trade-off between overall accuracy and meaningful prediction performance.
+
+---
+
+# Confusion Matrix Interpretation
+
+From the confusion matrix, we observe:
+
+- The model correctly identifies many hazardous asteroids
+- Some non-hazardous asteroids are misclassified as hazardous
+- The model is more conservative, preferring to flag potentially dangerous asteroids
+
+This behavior is desirable in real-world applications, where false negatives (missing a hazardous asteroid) are more dangerous than false positives.
+
+![Confusion Matrix](figures/confusion_matrix.png)
+
+From the figure, we see:
+
+- True positives exist for hazardous class
+- Some false positives occur
+- Model prioritizes safety
+
+---
+
+# CPT Visualization Analysis
+
+We visualized the conditional probability tables (CPTs) to understand how features influence hazard prediction.
+
+## Diameter
+
+![Diameter CPT](figures/cpt_diameter.png)
+
+The plot shows that large asteroids have significantly higher probability of being hazardous. This aligns with physical intuition, as larger asteroids pose greater risk.
+
+---
+
+## Velocity
+
+![Velocity CPT](figures/cpt_velocity.png)
+
+Higher velocity increases hazard probability. Fast-moving asteroids are harder to track and potentially more dangerous.
+
+---
+
+## Distance
+
+![Distance CPT](figures/cpt_distance.png)
+
+Asteroids that are closer to Earth have higher hazard probability. This matches real-world expectations.
+
+---
+
+## Magnitude
+
+![Magnitude CPT](figures/cpt_magnitude.png)
+
+Lower magnitude (brighter asteroids) tend to have higher hazard probability, which may correlate with asteroid size.
+
+---
+
+# Hidden Markov Model Analysis
+
+The Hidden Markov Model achieved an accuracy of approximately **0.603**, which is lower than the Bayesian Network. However, the HMM provides additional insights into **latent risk states**.
+
+The model learned two hidden states:
+
+- High risk state  
+- Low risk state  
+
+These hidden states represent underlying asteroid risk patterns that are not directly observable.
+
+---
+
+# HMM Training Curve
+
+![HMM Training Curve](figures/hmm_training.png)
+
+The log-likelihood curve shows steady improvement across EM iterations. The model converges after several iterations, indicating stable parameter estimation.
+
+This demonstrates that the Baum-Welch algorithm successfully optimized the model parameters.
+
+---
+
+# Hidden State Interpretation
+
+We examined the distribution of features across hidden states.
+
+Observations:
+
+- High-risk state tends to have larger diameter
+- High-risk state has higher velocity
+- High-risk state includes closer asteroids
+
+This confirms that the HMM successfully learned meaningful latent risk patterns.
+
+---
+
+# Comparison Between Models
+
+| Model | Accuracy | Strength |
+|------|----------|---------|
+| Baseline | 0.902 | Simple but useless |
+| Bayesian Network | 0.766 | Better hazard detection |
+| HMM | 0.603 | Latent structure discovery |
+
+The Bayesian Network performs better for classification, while the HMM provides insights into hidden risk structure.
+
+---
+
+# Key Takeaways
+
+From our experiments, we learned:
+
+- Diameter is the most important feature
+- Velocity also strongly affects risk
+- Distance reduces hazard likelihood
+- Probabilistic models capture uncertainty effectively
+
+---
+
+# Model Behavior
+
+The Bayesian Network tends to:
+
+- Detect more hazardous asteroids
+- Generate more conservative predictions
+
+The HMM tends to:
+
+- Learn latent patterns
+- Provide probabilistic risk states
+
+---
+
+# Real-World Implications
+
+These results suggest that probabilistic modeling is useful for asteroid hazard prediction. Even though accuracy is not perfect, probabilistic models provide interpretable predictions and uncertainty estimates.
+
+Such models could be used in:
+
+- Space monitoring systems
+- Risk assessment pipelines
+- Scientific analysis
+
+---
+
+# Summary
+
+Overall, the Bayesian Network provided stronger classification performance, while the Hidden Markov Model revealed meaningful latent structure. Both models demonstrate the usefulness of probabilistic modeling in uncertain real-world applications.
 
 ---
 
