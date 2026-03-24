@@ -78,6 +78,7 @@ We constructed a Bayesian Network where the hazard label depends on four observa
 - Distance  
 - Magnitude  
 
+![Bayesian Network](figures/BN.png)
 The joint probability distribution is defined as:
 
 $$
@@ -142,7 +143,6 @@ The HMM provides insight into latent risk states but performs worse than the Bay
 
 ---
 
-# Discussion
 
 # Discussion
 
@@ -172,7 +172,7 @@ From the confusion matrix, we observe:
 
 This behavior is desirable in real-world applications, where false negatives (missing a hazardous asteroid) are more dangerous than false positives.
 
-![Confusion Matrix](figures/confusion_matrix.png)
+![Confusion Matrix](.png)
 
 From the figure, we see:
 
