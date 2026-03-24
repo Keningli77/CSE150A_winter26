@@ -166,13 +166,18 @@ This highlights an important trade-off between overall accuracy and meaningful p
 # Confusion Matrix Interpretation
 
 This confusion matrix shows the classification performance of the Bayesian Network.
+
 From the matrix:
+
 True Hazardous predicted Hazardous: 1763
 True Hazardous predicted Non-Hazardous: 5
 True Non-Hazardous predicted Hazardous: 4239
 True Non-Hazardous predicted Non-Hazardous: 12161
+
 This tells us several important things:
+
 First, the model is very good at identifying hazardous asteroids. Only 5 hazardous asteroids were missed, which is extremely important in a safety-critical application.
+
 Second, the model tends to classify some non-hazardous asteroids as hazardous. This results in false positives (4239 cases). However, this behavior is often desirable in real-world risk prediction systems, where missing a dangerous asteroid is much worse than raising a false alarm.
 Overall, this confusion matrix suggests that the model is conservative, prioritizing safety over accuracy.
 
@@ -190,7 +195,9 @@ We visualized the conditional probability tables (CPTs) to understand how featur
 ![Diameter CPT](cpt.png)
 
 This plot shows the conditional probability of diameter given hazard status.
+
 From the figure, we observe:
+
 Hazardous asteroids are much more likely to have large diameters
 Non-hazardous asteroids are more evenly distributed across sizes
 Small and medium asteroids are rarely classified as hazardous
@@ -202,8 +209,11 @@ This finding aligns with real-world physics and validates that the Bayesian Netw
 
 ![Training Curve](tc.png)
 
+
 This figure shows the training curve of the Hidden Markov Model using the Baum-Welch algorithm.
+
 The x-axis represents EM iterations, and the y-axis represents log-likelihood.
+
 We observe:
 Log-likelihood increases rapidly during early iterations
 After several iterations, the curve stabilizes
@@ -215,58 +225,6 @@ The dataset provides sufficient information
 The optimization process is stable
 This confirms that the HMM training process worked correctly.
 
----
-
-## Distance
-
-![Distance CPT](figures/cpt_distance.png)
-
-Asteroids that are closer to Earth have higher hazard probability. This matches real-world expectations.
-
----
-
-## Magnitude
-
-![Magnitude CPT](figures/cpt_magnitude.png)
-
-Lower magnitude (brighter asteroids) tend to have higher hazard probability, which may correlate with asteroid size.
-
----
-
-# Hidden Markov Model Analysis
-
-The Hidden Markov Model achieved an accuracy of approximately **0.603**, which is lower than the Bayesian Network. However, the HMM provides additional insights into **latent risk states**.
-
-The model learned two hidden states:
-
-- High risk state  
-- Low risk state  
-
-These hidden states represent underlying asteroid risk patterns that are not directly observable.
-
----
-
-# HMM Training Curve
-
-![HMM Training Curve](figures/hmm_training.png)
-
-The log-likelihood curve shows steady improvement across EM iterations. The model converges after several iterations, indicating stable parameter estimation.
-
-This demonstrates that the Baum-Welch algorithm successfully optimized the model parameters.
-
----
-
-# Hidden State Interpretation
-
-We examined the distribution of features across hidden states.
-
-Observations:
-
-- High-risk state tends to have larger diameter
-- High-risk state has higher velocity
-- High-risk state includes closer asteroids
-
-This confirms that the HMM successfully learned meaningful latent risk patterns.
 
 ---
 
