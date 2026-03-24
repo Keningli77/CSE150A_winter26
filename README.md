@@ -204,7 +204,7 @@ From the figure, we observe:
 
 - Small and medium asteroids are rarely classified as hazardous
 
-This suggests that diameter is one of the most important features for hazard prediction. Larger asteroids are more dangerous because they have greater impact potential.
+- This suggests that diameter is one of the most important features for hazard prediction. Larger asteroids are more dangerous because they have greater impact potential.
 This finding aligns with real-world physics and validates that the Bayesian Network learned meaningful relationships from the data.
 ---
 
