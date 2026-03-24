@@ -78,7 +78,8 @@ We constructed a Bayesian Network where the hazard label depends on four observa
 - Distance  
 - Magnitude  
 
-![Bayesian Network](figures/BN.png)
+![Bayesian Network](BN.png)
+
 The joint probability distribution is defined as:
 
 $$
@@ -164,21 +165,19 @@ This highlights an important trade-off between overall accuracy and meaningful p
 
 # Confusion Matrix Interpretation
 
-From the confusion matrix, we observe:
+This confusion matrix shows the classification performance of the Bayesian Network.
+From the matrix:
+True Hazardous predicted Hazardous: 1763
+True Hazardous predicted Non-Hazardous: 5
+True Non-Hazardous predicted Hazardous: 4239
+True Non-Hazardous predicted Non-Hazardous: 12161
+This tells us several important things:
+First, the model is very good at identifying hazardous asteroids. Only 5 hazardous asteroids were missed, which is extremely important in a safety-critical application.
+Second, the model tends to classify some non-hazardous asteroids as hazardous. This results in false positives (4239 cases). However, this behavior is often desirable in real-world risk prediction systems, where missing a dangerous asteroid is much worse than raising a false alarm.
+Overall, this confusion matrix suggests that the model is conservative, prioritizing safety over accuracy.
 
-- The model correctly identifies many hazardous asteroids
-- Some non-hazardous asteroids are misclassified as hazardous
-- The model is more conservative, preferring to flag potentially dangerous asteroids
+![Confusion Matrix](hm.png)
 
-This behavior is desirable in real-world applications, where false negatives (missing a hazardous asteroid) are more dangerous than false positives.
-
-![Confusion Matrix](.png)
-
-From the figure, we see:
-
-- True positives exist for hazardous class
-- Some false positives occur
-- Model prioritizes safety
 
 ---
 
@@ -188,17 +187,33 @@ We visualized the conditional probability tables (CPTs) to understand how featur
 
 ## Diameter
 
-![Diameter CPT](figures/cpt_diameter.png)
+![Diameter CPT](cpt.png)
 
-The plot shows that large asteroids have significantly higher probability of being hazardous. This aligns with physical intuition, as larger asteroids pose greater risk.
-
+This plot shows the conditional probability of diameter given hazard status.
+From the figure, we observe:
+Hazardous asteroids are much more likely to have large diameters
+Non-hazardous asteroids are more evenly distributed across sizes
+Small and medium asteroids are rarely classified as hazardous
+This suggests that diameter is one of the most important features for hazard prediction. Larger asteroids are more dangerous because they have greater impact potential.
+This finding aligns with real-world physics and validates that the Bayesian Network learned meaningful relationships from the data.
 ---
 
-## Velocity
+## HMM Training Curve
 
-![Velocity CPT](figures/cpt_velocity.png)
+![Training Curve](tc.png)
 
-Higher velocity increases hazard probability. Fast-moving asteroids are harder to track and potentially more dangerous.
+This figure shows the training curve of the Hidden Markov Model using the Baum-Welch algorithm.
+The x-axis represents EM iterations, and the y-axis represents log-likelihood.
+We observe:
+Log-likelihood increases rapidly during early iterations
+After several iterations, the curve stabilizes
+The model converges around iteration 5–7
+This behavior indicates that the Baum-Welch algorithm successfully optimized model parameters.
+The rapid convergence suggests that:
+The model structure is appropriate
+The dataset provides sufficient information
+The optimization process is stable
+This confirms that the HMM training process worked correctly.
 
 ---
 
